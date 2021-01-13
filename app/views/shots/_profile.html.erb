@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <p style="display: inline"><%= current_user.name %>(@<%= current_user.username %>)</p>
+  <button style="display: inline"><%= link_to 'Edit User', edit_user_registration_path %></button>
+  <button style="display: inline"><%= link_to 'Back', root_path %></button>
+</div>
+
+<br>
+
+<div>
+  <h3 style="display: inline">Your Shots</h3>
+  <button style="display: inline"><%= link_to 'New Shot', new_shot_path %></button>
+</div>
+
+<br>
+
+<% current_user.shots.each do |shot| %>
+
+  <div>
+    <img style="width: 100px; height: 100px;" src="<%= shot.image %>"/>
+    <p><strong>Title: </strong><%= shot.title %></p>
+    <p><strong>Description: </strong><%= truncate(shot.description, length: 60) %></p>
+    <p><strong>Time: </strong><%= time_ago_in_words(shot.created_at) %></p>
+    <p><strong><%= pluralize(shot.comments.count, 'Comment') %></strong></p>
+  </div>
+  <button><%= link_to 'Show', shot %></button>
+  <button><%= link_to 'Edit', edit_shot_path(shot) %></button>
+  <button><%= link_to 'Destroy', shot, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+  <br>
+  <br>
+<% end %>

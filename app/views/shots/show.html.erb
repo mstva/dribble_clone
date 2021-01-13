@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shot.user.name %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @shot.user.username %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @shot.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @shot.description %>
+</p>
+
+<p>
+  <strong>Time: </strong>
+  posted <%= time_tag(@shot.created_at, :format => '%d %B %Y at %l:%M %p') %>
+</p>
+
+<p>
+  <strong>Image Url:</strong>
+  <%= @shot.image.to_s %>
+</p>
+
+<p>
+  <strong>Image:</strong> <br>
+  <img style="width: 370px; height: 300px" src="<%= @shot.image_url unless @shot.image.blank? %>"/>
+</p>
+
+<% if user_signed_in? && (current_user.id == @shot.user_id) %>
+
+  <%= link_to 'Edit', edit_shot_path(@shot) %> |
+  <%= link_to 'Back', shots_path %>
+
+<% end %>
+
+<div>
+  <p><strong><%= pluralize(@shot.comments.count, 'Comment') %></strong></p>
+  <%= render 'comments/comment' %>
+  <hr>
+  <% if user_signed_in? %>
+    <%= render 'comments/form' %>
+  <% else %>
+    <p>You need to login to comment</p>
+    <button><%= link_to 'Login', new_user_session_path %></button>
+  <% end %>
+</div>
+
+

@@ -1,0 +1,42 @@
+<h3>Shots Feed </h3>
+
+<br>
+
+<% @shots.each do |shot| %>
+  <% if shot.user_id != current_user.id %>
+
+    <div>
+      <div style="display: inline">
+        <img style="width: 100px; height: 100px" src="<%= shot.image %>"/>
+      </div>
+      <div>
+        <p>
+          <strong>Name: </strong>
+          <%= shot.user.name %>
+        </p>
+        <p>
+          <strong>Username: </strong>
+          <%= shot.user.username %>
+        </p>
+        <p>
+          <strong>Title: </strong>
+          <%= shot.title %>
+        </p>
+        <p>
+          <strong>Description: </strong>
+          <%=truncate(shot.description, length: 60) %>
+        </p>
+        <p>
+          <strong>Time: </strong>
+          <%=time_ago_in_words(shot.created_at) %>
+        </p>
+        <p><strong><%= pluralize(shot.comments.count, 'Comment') %></strong></p>
+        <button><%= link_to 'Show', shot %></button>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+
+  <% end %>
+<% end %>
